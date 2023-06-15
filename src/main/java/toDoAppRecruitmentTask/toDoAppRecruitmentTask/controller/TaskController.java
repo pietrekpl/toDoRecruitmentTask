@@ -1,5 +1,6 @@
 package toDoAppRecruitmentTask.toDoAppRecruitmentTask.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -28,7 +29,7 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Task addTask(@RequestBody Task task) {
+    public Task addTask(@Valid @RequestBody Task task) {
         log.info("in method addTask(). Takes body: {}", task);
         requestCounter.increment();
         return taskService.addTask(task);

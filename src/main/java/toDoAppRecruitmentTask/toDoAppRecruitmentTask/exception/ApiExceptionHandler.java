@@ -3,6 +3,7 @@ package toDoAppRecruitmentTask.toDoAppRecruitmentTask.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 @Slf4j
@@ -24,8 +26,8 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handleMethodNotValidArgumentException(MethodArgumentNotValidException exception) {
-        final var errorList = new ArrayList<>();
-        for (final var error : exception.getBindingResult().getFieldErrors()) {
+        final List<String> errorList = new ArrayList<>();
+        for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
             errorList.add(error.getField() + " : " + error.getDefaultMessage());
         }
         log.error(exception.getMessage(), exception);
@@ -36,6 +38,6 @@ public class ApiExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleGeneralException(Exception exception) {
         log.error(exception.getMessage(), exception);
-        return new ErrorResponse(exception.getCause().getMessage(), LocalDateTime.now());
+        return new ErrorResponse(exception.getMessage(), LocalDateTime.now());
     }
 }
