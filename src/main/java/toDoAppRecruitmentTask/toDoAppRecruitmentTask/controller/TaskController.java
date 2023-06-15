@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import toDoAppRecruitmentTask.toDoAppRecruitmentTask.model.RequestCounter;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.model.Task;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.service.TaskService;
 
@@ -24,10 +24,13 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    private final RequestCounter requestCounter;
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Task addTask(@RequestBody Task task) {
         log.info("in method addTask(). Takes body: {}", task);
+        requestCounter.increment();
         return taskService.addTask(task);
     }
 
@@ -35,23 +38,33 @@ public class TaskController {
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
         log.info("in method updateTask(). Takes id: {}", id);
+        requestCounter.increment();
         return taskService.updateTask(id, task);
     }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping
-    public void deleteTask(Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable("id") Long id) {
         log.info("in method deleteTask(). Takes id: {}", id);
+        requestCounter.increment();
         taskService.deleteTask(id);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<Task> getSearchedListOrAllEmployees(
-            @RequestParam(value = "taskName", required = false, defaultValue = "")String taskName,
+            @RequestParam(value = "taskName", required = false, defaultValue = "") String taskName,
             @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
             @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") Sort.Direction sortDirection) {
         log.info("in method getSearchedListOrAllEmployees()");
+        requestCounter.increment();
         return taskService.searchAndSort(taskName, sortBy, sortDirection);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/counter")
+    public int getCountedRequests() {
+       return requestCounter.getCount();
     }
 
 
