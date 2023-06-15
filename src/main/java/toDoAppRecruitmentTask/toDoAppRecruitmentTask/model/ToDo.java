@@ -30,6 +30,4 @@ public class ToDo {
 
     @Enumerated(value = EnumType.STRING)
     private Status status;
-
-
 }
