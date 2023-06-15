@@ -1,6 +1,7 @@
 package toDoAppRecruitmentTask.toDoAppRecruitmentTask.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.exception.ResourceNotFoundException;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.model.Task;
@@ -13,6 +14,11 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+
+    @Override
+    public List<Task> getAllTasks() {
+        return taskRepository.findAll();
+    }
 
     @Override
     public Task addTask(Task task) {
@@ -38,6 +44,11 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> searchByTaskName(String taskName) {
-        return taskRepository.findByTaskNameLike(taskName);
+        return taskRepository.findByTaskNameContainingIgnoreCase(taskName, Sort.unsorted());
+    }
+
+    public List<Task> searchAndSort(String taskName, String sortBy, Sort.Direction sortDirection) {
+        var sort = Sort.by(sortDirection, sortBy);
+        return taskRepository.findByTaskNameContainingIgnoreCase(taskName, sort);
     }
 }
