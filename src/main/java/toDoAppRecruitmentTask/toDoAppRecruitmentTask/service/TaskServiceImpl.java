@@ -43,8 +43,14 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.save(existingTask);
     }
 
-    public List<Task> searchAndSort(String taskName, String sortBy, Sort.Direction sortDirection) {
-        var sort = Sort.by(sortDirection, sortBy);
+    public List<Task> searchAndSort(String taskName, String sortBy, String sortDirection) {
+        Sort.Direction direction;
+        if (sortDirection.equalsIgnoreCase("desc")) {
+            direction = Sort.Direction.DESC;
+        } else {
+            direction = Sort.Direction.ASC;
+        }
+        Sort sort = Sort.by(direction, sortBy);
         return taskRepository.findByTaskNameContainingIgnoreCase(taskName, sort);
     }
 }

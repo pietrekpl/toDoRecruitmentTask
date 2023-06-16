@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.model.RequestCounter;
+import toDoAppRecruitmentTask.toDoAppRecruitmentTask.model.Status;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.model.Task;
 import toDoAppRecruitmentTask.toDoAppRecruitmentTask.service.TaskService;
 
@@ -26,6 +27,7 @@ public class TaskController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Task addTask(@Valid @RequestBody Task task) {
+        task.setStatus(Status.NOT_STARTED);
         log.info("in method addTask(). Takes body: {}", task);
         requestCounter.increment();
         return taskService.addTask(task);
@@ -60,7 +62,7 @@ public class TaskController {
     public List<Task> getSearchedListOrAllEmployees(
             @RequestParam(value = "taskName", required = false, defaultValue = "") String taskName,
             @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
-            @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") Sort.Direction sortDirection) {
+            @RequestParam(value = "sortDirection", required = false, defaultValue = "asc") String sortDirection) {
         log.info("in method getSearchedListOrAllEmployees()");
         requestCounter.increment();
         return taskService.searchAndSort(taskName, sortBy, sortDirection);

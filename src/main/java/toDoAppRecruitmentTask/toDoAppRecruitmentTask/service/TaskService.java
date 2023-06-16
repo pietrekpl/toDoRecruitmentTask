@@ -11,5 +11,5 @@ public interface TaskService {
      Task addTask(Task task);
      void deleteTask(Long id);
      Task updateTask(Long id, Task task);
-     List<Task> searchAndSort(String taskName, String SortBy, Sort.Direction sortDirection);
+     List<Task> searchAndSort(String taskName, String SortBy, String sortDirection);
 }
