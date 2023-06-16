@@ -16,6 +16,12 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
 
     @Override
+    public Task getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id "+id+" not found"));
+    }
+
+    @Override
     public Task addTask(Task task) {
         return taskRepository.save(task);
     }
@@ -35,11 +41,6 @@ public class TaskServiceImpl implements TaskService {
         existingTask.setStatus(task.getStatus());
         existingTask.setDeadline(task.getDeadline());
         return taskRepository.save(existingTask);
-    }
-
-    @Override
-    public List<Task> searchByTaskName(String taskName) {
-        return taskRepository.findByTaskNameContainingIgnoreCase(taskName, Sort.unsorted());
     }
 
     public List<Task> searchAndSort(String taskName, String sortBy, Sort.Direction sortDirection) {

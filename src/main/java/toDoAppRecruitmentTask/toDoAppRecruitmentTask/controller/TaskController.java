@@ -12,11 +12,7 @@ import toDoAppRecruitmentTask.toDoAppRecruitmentTask.service.TaskService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600,
-        methods = {RequestMethod.GET,
-                RequestMethod.POST,
-                RequestMethod.DELETE,
-                RequestMethod.PUT})
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -52,6 +48,14 @@ public class TaskController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")
+    public Task getTaskById(@PathVariable("id") Long id) {
+        log.info("in method getTaskById(). Takes id: {}", id);
+        requestCounter.increment();
+        return taskService.getTaskById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<Task> getSearchedListOrAllEmployees(
             @RequestParam(value = "taskName", required = false, defaultValue = "") String taskName,
@@ -65,7 +69,7 @@ public class TaskController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/counter")
     public int getCountedRequests() {
-       return requestCounter.getCount();
+        return requestCounter.getCount();
     }
 
 
