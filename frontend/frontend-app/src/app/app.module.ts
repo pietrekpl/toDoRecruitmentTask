@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import { TaskListComponent } from './task-list/task-list.component';
+import { AppRoutingModule } from './app-routing/app-routing.module'
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TaskListComponent } from './task-list/task-list.component';
     RouterLink,
     RouterOutlet,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
