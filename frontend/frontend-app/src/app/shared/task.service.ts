@@ -20,4 +20,8 @@ private baseUrl = 'http://localhost:8080/api/tasks'
       return this.http.get<Task[]>(`${this.baseUrl}`, { params });
     }
 
+    addTask(task: Task): Observable<Task> {
+    task.deadline = task.deadline.split('-').reverse().join('.');
+     return this.http.post<Task>(`${this.baseUrl}`, task)
+    }
 }

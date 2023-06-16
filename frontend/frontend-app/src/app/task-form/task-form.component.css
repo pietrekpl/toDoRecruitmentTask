@@ -1,0 +1,33 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.task-form label {
+  font-weight: bold;
+}
+
+.task-form input[type="text"],
+.task-form select {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
