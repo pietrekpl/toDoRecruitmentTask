@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
 import { Injectable } from '@angular/core';
 import { Task } from '../shared/task';
+import { Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class TaskListComponent implements OnInit {
   sortBy = '';
   sortDirection = '';
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private router: Router) {
   }
 
   ngOnInit() {
@@ -33,6 +34,10 @@ export class TaskListComponent implements OnInit {
         this.tasks = tasks;
       });
   }
+
+   editTask(id: number) {
+     this.router.navigate(['/edit-task', id])
+   }
 
 }
 

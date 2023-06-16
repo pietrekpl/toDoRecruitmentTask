@@ -24,4 +24,14 @@ private baseUrl = 'http://localhost:8080/api/tasks'
     task.deadline = task.deadline.split('-').reverse().join('.');
      return this.http.post<Task>(`${this.baseUrl}`, task)
     }
+
+    editTask(id: number, task: Task): Observable<Task> {
+    task.deadline = task.deadline.split('-').reverse().join('.');
+      const url = `${this.baseUrl}/${id}`;
+      return this.http.put<Task>(url, task);
+    }
+    getTaskById(id: number): Observable<Task> {
+      return this.http.get<Task>(`${this.baseUrl}/${id}`);
+      }
+
 }

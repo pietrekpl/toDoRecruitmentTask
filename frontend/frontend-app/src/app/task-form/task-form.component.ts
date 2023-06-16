@@ -32,12 +32,11 @@ export class TaskFormComponent implements OnInit {
 
   private validateDeadline(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
+    selectedDate.setHours(23, 59, 59, 0);
     const currentDate = new Date();
-
     if (selectedDate < currentDate) {
       return { invalidDeadline: true };
     }
-
     return null;
   }
 

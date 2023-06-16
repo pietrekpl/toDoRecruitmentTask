@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { TaskFormComponent } from './task-form/task-form.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     TaskListComponent,
     TaskFormComponent,
     PageNotFoundComponent,
+    TaskEditComponent,
   ],
   imports: [
     BrowserModule,
