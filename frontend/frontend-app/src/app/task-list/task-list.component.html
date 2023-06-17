@@ -1,31 +1,41 @@
 <div class="container">
   <h2>Task List</h2>
 
-  <div class="d-flex align-items-center">
-    <label class="mr-2" for="taskName"><h4>Task name</h4>  </label>
-    <input class="col-auto" type="text" id="taskName" [(ngModel)]="taskName">
-    <div class="col-auto">
-      <button class="btn btn-primary" (click)="searchAndSort()">Search</button>
+  <div class="row align-items-center">
+    <div class="col-md-3">
+      <label for="taskName" class="bold-label"><h4>Task name:</h4></label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="taskName" [(ngModel)]="taskName">
+        <div class="input-group-append">
+          <button class="btn btn-primary" (click)="searchAndSort()">Search</button>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="d-flex align-items-center">
-    <label class="mr-2" for="sortBy"><h4>Sort By:</h4></label>
-    <select id="sortBy" [(ngModel)]="sortBy">
-      <option value="">-- Select Field --</option>
-      <option value="taskName">Task Name</option>
-      <option value="deadline">Deadline</option>
-      <option value="status">Status</option>
-
-    </select>
-    <label class="mr-2" for="sortDirection"><h4>Sorting Direction:</h4></label>
-    <select id="sortDirection" [(ngModel)]="sortDirection">
-      <option value="">-- Select Direction --</option>
-      <option value="asc">Ascending</option>
-      <option value="desc">Descending</option>
-    </select>
-    <div class="col-auto">
-      <button class="btn btn-primary" (click)="searchAndSort()">Sort</button>
+    <div class="col-md-9">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <label for="sortDirection" class="bold-label"><h4>Sorting Direction:</h4></label>
+          <select id="sortDirection" class="form-control" [(ngModel)]="sortDirection">
+            <option value="">-- Select Direction --</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="sortBy" class="bold-label"><h4>Sort By:</h4></label>
+          <div class="input-group">
+            <select id="sortBy" class="form-control" [(ngModel)]="sortBy">
+              <option value="">-- Select Field --</option>
+              <option value="taskName">Task Name</option>
+              <option value="deadline">Deadline</option>
+              <option value="status">Status</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="searchAndSort()">Sort</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <hr>
@@ -37,18 +47,37 @@
       <th>Deadline</th>
       <th>Status</th>
       <th>Actions</th>
+      <th>Progress</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let task of tasks let i = index">
+    <tr *ngFor="let task of tasks">
       <td>{{ task.taskName }}</td>
       <td>{{ task.deadline }}</td>
       <td>{{ task.status }}</td>
       <td>
         <button (click)="editTask(task.id)"  class="btn btn-info">EDIT</button>
-        <button  class="btn btn-danger">DELETE</button>
-        <button  class="btn btn-light">DETAILS</button>
+        <button (click)="deleteTask(task.id)"  class="btn btn-danger">DELETE</button>
+        <button (click)="openCityDialog(task.id)" class="btn btn-light">DETAILS</button>
+        <ng-template let-data #myCityDialog>
+          <h2 mat-dialog-title>Task Details </h2>
+          <div mat-dialog-actions>
+            <div class="col-md-7">
+              <p>Task Id: {{taskById!.id}}</p>
+              <p>Task name: {{taskById!.taskName}}</p>
+              <p>Deadline: {{taskById!.deadline}}</p>
+              <p>Status: {{taskById!.status}}</p>
+            </div>
+            <div class="col-md-7">
+              <button class="btn btn-info" mat-dialog-close>Close</button>
+            </div>
+          </div>
+        </ng-template>
       </td>
+      <td>
+        <fa-icon [icon]="getIcon(task.status)"></fa-icon>
+      </td>
+
     </tr>
     </tbody>
   </table>

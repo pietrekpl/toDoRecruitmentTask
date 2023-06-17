@@ -12,6 +12,10 @@ import { TaskFormComponent } from './task-form/task-form.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -30,9 +34,13 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [FaIconLibrary],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

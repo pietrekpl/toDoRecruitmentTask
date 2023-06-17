@@ -14,10 +14,10 @@ private baseUrl = 'http://localhost:8080/api/tasks'
 
     searchAndSortTasks(taskName: string, sortBy: string, sortDirection: string): Observable<Task[]> {
       let params = new HttpParams();
-      params = params.set('taskName', taskName);
-      params = params.set('sortBy', sortBy);
-      params = params.set('sortDirection', sortDirection);
-      return this.http.get<Task[]>(`${this.baseUrl}`, { params });
+      params = params.set('taskName', taskName)
+      params = params.set('sortBy', sortBy)
+      params = params.set('sortDirection', sortDirection)
+      return this.http.get<Task[]>(`${this.baseUrl}`, { params })
     }
 
     addTask(task: Task): Observable<Task> {
@@ -28,10 +28,19 @@ private baseUrl = 'http://localhost:8080/api/tasks'
     editTask(id: number, task: Task): Observable<Task> {
     task.deadline = task.deadline.split('-').reverse().join('.');
       const url = `${this.baseUrl}/${id}`;
-      return this.http.put<Task>(url, task);
+      return this.http.put<Task>(url, task)
     }
+
     getTaskById(id: number): Observable<Task> {
-      return this.http.get<Task>(`${this.baseUrl}/${id}`);
+      return this.http.get<Task>(`${this.baseUrl}/${id}`)
+    }
+
+    deleteTask(id: number): Observable<Task> {
+    return this.http.delete<Task>(`${this.baseUrl}/${id}`)
+    }
+
+    getRequestCount(): Observable<number> {
+        return this.http.get<number>(`${this.baseUrl}/counter`);
       }
 
 }

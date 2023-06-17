@@ -7,3 +7,22 @@
   justify-content: center;
 }
 
+.custom-dialog {
+  margin: 0 auto;
+}
+
+
+.task-name-input {
+  margin-right: 10px;
+}
+
+.bold-label {
+  font-weight: bold;
+}
+
+.task-name-input {
+  margin-right: 10px;
+  width: 200px;
+}
+
+
