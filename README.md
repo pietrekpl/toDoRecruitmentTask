@@ -1,5 +1,7 @@
 
 ![screen1](https://github.com/pietrekpl/toDoRecruitmentTask/assets/45723159/3137c4e0-99ad-4fef-b979-f4f12a190c58)
+* 
+![screen2](https://github.com/pietrekpl/toDoRecruitmentTask/assets/45723159/6b2df2a3-d8f8-4d89-9ef1-7e57f6a85143)
 
 
 **Recruitment task : To do app**
